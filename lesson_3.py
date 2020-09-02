@@ -1,46 +1,56 @@
 # 1. Реализовать функцию, принимающую два числа (позиционные аргументы) и выполняющую их деление.
 # Числа запрашивать у пользователя, предусмотреть обработку ситуации деления на ноль.
 
-# def task_1_func (num_1, num_2):
-#     try:
-#         print("%.2f" % (float(num_1) / float(num_2)))
-#     except ZeroDivisionError:
-#         print('Деление на ноль!')
-#     except ValueError:
-#         print('Введите число!')
-#
-#
-#
-# a, b = input("Введите 2 числа через запятую, программа их поделит: \n").split(',')
-# task_1_func(num_1=a, num_2=b)
+def task_1_func (num_1, num_2):
+    try:
+        print("%.2f" % (float(num_1) / float(num_2)))
+    except ZeroDivisionError:
+        print('Деление на ноль!')
+    except ValueError:
+        print('Введите число!')
+
+
+
+num_1, num_2 = input("Введите 2 числа через пробел, программа их поделит: \n").split()
+task_1_func(num_1, num_2)
 
 #----------------------------------------------------------------------------------------
 # 2. Реализовать функцию, принимающую несколько параметров, описывающих данные пользователя:
 # имя, фамилия, год рождения, город проживания, email, телефон.
 # Функция должна принимать параметры как именованные аргументы. Реализовать вывод данных о пользователе одной строкой.
 
-# def task_2_func (name, last_name, birthday, adress, email, phone):
-#     print(name, last_name, birthday, adress, email, phone)
-#
-#
-# task_2_func('Гоша', 'Пластинин', '1995', 'Москва', 'Почта', '+7(123)456-78-90')
+def task_2_func (param):
+    return list(param.values())
+
+
+data = {
+    "name": "Гоша",
+    "last_name": "Пластинин",
+    "birthday": '1995',
+    "adress": 'Москва',
+    "email": 'Почта',
+    "phone": '+7(123)456-78-90'
+}
+
+print(' '.join(task_2_func(data)))
 #----------------------------------------------------------------------------------------
 
 # 3.Реализовать функцию my_func(),
 # которая принимает три позиционных аргумента, и возвращает сумму наибольших двух аргументов.
 
-# number_1, number_2, number_3 = input("Введите 3 числа через запятую: \n").split(',')
-#
-# def my_func(number_1, number_2, number_3):
-#     int_list = sorted([number_1, number_2, number_3])
-#     int_list.reverse()
-#     return int_list[0:2]
-#
-#
-# try:
-#     print(my_func(number_1=int(number_1), number_2=int(number_2), number_3=int(number_3)))
-# except ValueError:
-#     print('Введи целое число!')
+number_1, number_2, number_3 = input("Введите 3 числа через пробел: \n").split()
+
+
+def my_func(number_1, number_2, number_3):
+    int_list = sorted([number_1, number_2, number_3])
+    int_list.reverse()
+    return sum(int_list[0:2])
+
+
+try:
+    print(my_func(int(number_1), int(number_2), int(number_3)))
+except ValueError:
+    print('Введи целое число!')
 
 #----------------------------------------------------------------------------------------
 
@@ -53,27 +63,24 @@
 
 # Опять же, зачем вставлять циклы туда, где они не нужны. Код должен быть красивым и лаконичным!
 
-# def my_func_2(x, y):
-#     return round((x ** y), 5)
-#
-#
-# def my_func_2_2(x, y):
-#     if y == 0:
-#         return 1
-#     else:
-#         return round(1/x * my_func_2_2(x, y + 1), 5)
-#
-#
-# try:
-#     x = abs(float(input("Введите действительное положительно число: \n")))
-#     y = int(input("Введите целое отрицательное число: \n"))
-#     if y > 0:
-#         y = -y
-#     print(my_func_2(x=x, y=y))
-#     print(my_func_2_2(x=x, y=y))
-#
-# except:
-#     print("Введите действительное положительно число для перовго числа и целое отрицательное для второго числа!")
+def my_func_2(x, y):
+    return round((x ** y), 5)
+
+
+def my_func_2_2(x, y):
+    return 1 if y == 0 else round(1/x * my_func_2_2(x, y + 1), 5)
+
+
+try:
+    x = abs(float(input("Введите действительное положительно число: \n")))
+    y = int(input("Введите целое отрицательное число: \n"))
+    if y > 0:
+        y = -y
+    print(my_func_2(x=x, y=y))
+    print(my_func_2_2(x=x, y=y))
+
+except:
+    print("Введите действительное положительно число для перовго числа и целое отрицательное для второго числа!")
 
 
 #----------------------------------------------------------------------------------------
@@ -85,29 +92,26 @@
 # Если специальный символ введен после нескольких чисел,
 # то вначале нужно добавить сумму этих чисел к полученной ранее сумме и после этого завершить программу.
 
-# global_sum = 0
-#
-# def num_sum(*args):
-#     s_list = []
-#     for elem in args[0]:
-#         try:
-#             s_list.append(int(elem))
-#         except ValueError:
-#             break
-#     return sum(s_list)
-#
-#
-# while True:
-#     user_input = input('Введите числа через проблел, либо нажмите @, что выйти: \n').split(' ')
-#     if user_input[0] == "@":
-#         print(global_sum)
-#         break
-#     elif "@" in user_input:
-#         global_sum += num_sum(user_input)
-#         print(global_sum)
-#         break
-#     global_sum += num_sum(user_input)
-#     print(global_sum)
+global_sum = 0
+
+def num_sum(letters):
+    s_list = []
+    for elem in letters:
+        try:
+            s_list.append(int(elem))
+        except ValueError:
+            break
+    return sum(s_list)
+
+
+while True:
+    user_input = input('Введите числа через проблел, либо нажмите @, что выйти: \n').split()
+    if "@" in user_input:
+        global_sum += num_sum(user_input)
+        print(global_sum)
+        break
+    global_sum += num_sum(user_input)
+    print(global_sum)
 
 
 #----------------------------------------------------------------------------------------
@@ -117,13 +121,27 @@
 # Каждое слово состоит из латинских букв в нижнем регистре. Сделать вывод исходной строки, но каждое слово должно начинаться с заглавной буквы.
 # Необходимо использовать написанную ранее функцию int_func().
 
-# def int_func(text):
-#     return text.title() #одно слово
-#
-# word_text = []
-# text = input('Введите текст (разделитель - пробел): \n').split()
-# for elem in text:
-#     word = int_func(elem)
-#     word_text.append(word)
-#
-# print(" ".join(word_text))
+def int_func(text):
+    return text.title() #одно слово
+
+
+def validate(letters):
+    cyrillic = "абвгдеёжзийклмнопрстуфхцчшъщьэюя"
+    for elem in cyrillic:
+        if elem in str(letters):
+            return False
+        elif elem not in str(letters):
+            continue
+    return True
+
+word_text = []
+text = input('Введите текст (разделитель - пробел): \n').lower().split()
+if validate(text) == True:
+    for elem in text:
+        word = int_func(elem)
+        word_text.append(word)
+        print(" ".join(word_text))
+else:
+    print("На вход должны быть латинские данные!")
+
+
