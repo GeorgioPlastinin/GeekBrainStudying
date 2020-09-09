@@ -13,32 +13,32 @@ import random
 """
 
 
-# class TrafficLight:
-#     __color = ['Красный', 'Жёлтый', 'Зеленый']
-#
-#     def __init__(self):
-#         print('Запуск светофора! \n')
-#
-#     def running(self, count=None):
-#         switching = TrafficLight.__color
-#         try_count = 0
-#         for elem in cycle(switching):
-#             if elem == 'Красный' and switching[1] == 'Жёлтый':
-#                 print(elem), time.sleep(7)
-#             elif elem == 'Жёлтый' and switching[2] == 'Зеленый':
-#                 print(elem), time.sleep(2)
-#             elif elem == 'Зеленый' and switching[0] == 'Красный':
-#                 print(elem), time.sleep(5)
-#                 try_count += 1
-#                 if try_count == count and count is not None:
-#                     break
-#             else:
-#                 print('Это не рабочий светофор!')
-#                 break
-#
-#
-# light = TrafficLight()
-# light.running(2)  # реализовал количество повторений, так как в основе лежит cycle
+class TrafficLight:
+    __color = ['Красный', 'Жёлтый', 'Зеленый']
+
+    def __init__(self):
+        print('Запуск светофора! \n')
+
+    def running(self, count=None):
+        switching = TrafficLight.__color
+        try_count = 0
+        for elem in cycle(switching):
+            if elem == 'Красный' and switching[1] == 'Жёлтый':
+                print(elem), time.sleep(7)
+            elif elem == 'Жёлтый' and switching[2] == 'Зеленый':
+                print(elem), time.sleep(2)
+            elif elem == 'Зеленый' and switching[0] == 'Красный':
+                print(elem), time.sleep(5)
+                try_count += 1
+                if try_count == count and count is not None:
+                    break
+            else:
+                print('Это не рабочий светофор!')
+                break
+
+
+light = TrafficLight()
+light.running(2)  # реализовал количество повторений, так как в основе лежит cycle
 
 
 """Реализовать класс Road (дорога), в котором определить атрибуты: length (длина), width (ширина). 
@@ -50,17 +50,17 @@ import random
 """
 
 
-# class Road:
-#     def __init__(self, length, width):
-#         self._length = length
-#         self._width = width
-#
-#     def calculation(self, mass, depth):
-#         return self._length * self._width * mass * depth
-#
-#
-# r = Road(10, 10)
-# print(r.calculation(10, 10))
+class Road:
+    def __init__(self, length, width):
+        self._length = length
+        self._width = width
+
+    def calculation(self, mass, depth):
+        return self._length * self._width * mass * depth
+
+
+r = Road(10, 10)
+print(r.calculation(10, 10))
 
 
 """Реализовать базовый класс Worker (работник), в котором определить атрибуты: name, surname, position (должность), 
@@ -71,25 +71,25 @@ income (доход). Последний атрибут должен быть з�
 передать данные, проверить значения атрибутов, вызвать методы экземпляров)."""
 
 
-# class Worker:
-#     name = 'Георгий'
-#     surname = 'Александроич'
-#     position = 'Python Developer'
-#     _income = {"wage": 100, "bonus": 500}
-#
-#
-# class Position(Worker):
-#     def get_full_name(self):
-#         return Worker.name + ' ' + Worker.surname
-#
-#     def get_total_income(self):
-#         return sum(dict.values(self._income))
-#
-#
-# p = Position()
-# print(p.get_full_name())
-# print(p.position)
-# print('Доход: {}'.format(p.get_total_income()))
+class Worker:
+    name = 'Георгий'
+    surname = 'Александроич'
+    position = 'Python Developer'
+    _income = {"wage": 100, "bonus": 500}
+
+
+class Position(Worker):
+    def get_full_name(self):
+        return Worker.name + ' ' + Worker.surname
+
+    def get_total_income(self):
+        return sum(dict.values(self._income))
+
+
+p = Position()
+print(p.get_full_name())
+print(p.position)
+print('Доход: {}'.format(p.get_total_income()))
 
 
 """Реализуйте базовый класс Car. У данного класса должны быть следующие атрибуты: speed, color, name, is_police (булево).  
@@ -182,38 +182,38 @@ Pencil (карандаш), Handle (маркер). В каждом из клас�
 классов метод должен выводить уникальное сообщение. Создать экземпляры классов и проверить, что выведет описанный 
 метод для каждого экземпляра."""
 
-# class Stationery:
-#
-#     def __init__(self, title):
-#         self.title = title
-#
-#     def draw(self):
-#         print('Запуск отрисовки!')
-#
-# class Pen(Stationery):
-#
-#
-#     def draw(self):
-#         print('Запуск отрисовки предметом - {}'.format(self.title))
-#
-#
-# class Pencil(Stationery):
-#
-#     def draw(self):
-#         print('Предметом {} рисуешь ты'.format(self.title))
-#
-#
-# class Handle(Stationery):
-#
-#     def draw(self):
-#         print('А это жирный {}'.format(self.title))
-#
-#
-# p = Pen('Ручка')
-# pc = Pencil('Карандаш')
-# h = Handle('Маркер')
-#
-# p.draw()
-# pc.draw()
-# h.draw()
+class Stationery:
+
+    def __init__(self, title):
+        self.title = title
+
+    def draw(self):
+        print('Запуск отрисовки!')
+
+class Pen(Stationery):
+
+
+    def draw(self):
+        print('Запуск отрисовки предметом - {}'.format(self.title))
+
+
+class Pencil(Stationery):
+
+    def draw(self):
+        print('Предметом {} рисуешь ты'.format(self.title))
+
+
+class Handle(Stationery):
+
+    def draw(self):
+        print('А это жирный {}'.format(self.title))
+
+
+p = Pen('Ручка')
+pc = Pencil('Карандаш')
+h = Handle('Маркер')
+
+p.draw()
+pc.draw()
+h.draw()
 
