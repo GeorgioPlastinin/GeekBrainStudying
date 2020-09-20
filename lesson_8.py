@@ -132,13 +132,6 @@ class Main:
         4 -- Передать товар подразделению "компании".
         """).lower()
 
-# admin_login_list = {}
-#         self.cursor.execute("SELECT user_id, login, password FROM admin_authtorization")
-#         for line in self.cursor:
-#             admin_login_list[line[0]] = {}
-#             admin_login_list[line[0]]['user_id'] = line[0]
-#             admin_login_list[line[0]]['login'] = line[1]
-#         return admin_login_list[user_id]
 class DataValidator:
     pass
 
