@@ -149,7 +149,15 @@ class StoreHouse:
         self.cursor = self.connection.cursor()
 
     def expect_storehouse(self):
-        self.cursor.execute('SELECT Name, TechCount FROM supplies')
+        supplies_list = []
+        self.cursor.execute('SELECT Name, TechCount, Model FROM supplies s'
+                            'JOIN modeles m on s.Model_id = m.id')
+        for line in self.cursor:
+            supplies_list[line[0]] = {}
+            supplies_list[line[0]]['Name'] = line[0]
+            supplies_list[line[0]]['TechCount'] = line[1]
+            supplies_list[line[0]]['Model'] = line[2]
+        return supplies_list
 
     def write_supplies(self):
         pass
