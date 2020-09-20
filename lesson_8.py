@@ -1,9 +1,10 @@
 from datetime import datetime
+import sqlite3
+
 """Реализовать класс «Дата», функция-конструктор которого должна принимать дату в виде строки формата «день-месяц-год». 
 В рамках класса реализовать два метода. Первый, с декоратором @classmethod, должен извлекать число, месяц, год и 
 преобразовывать их тип к типу «Число». Второй, с декоратором @staticmethod, должен проводить валидацию числа, месяца и 
 года (например, месяц — от 1 до 12). Проверить работу полученной структуры на реальных данных."""
-
 
 # class Date:
 #     def __init__(self, date):
@@ -34,7 +35,6 @@ from datetime import datetime
 с ошибкой.
 """
 
-
 # class Exp(Exception):
 #
 #     def __init__(self):
@@ -62,7 +62,6 @@ from datetime import datetime
  При вводе пользователем очередного элемента необходимо реализовать проверку типа элемента и вносить его в список, 
  только если введено число. Класс-исключение должен не позволить пользователю ввести текст (не число) 
  и отобразить соответствующее сообщение. При этом работа скрипта не должна завершаться."""
-
 
 # class ThisIsNotNumber(Exception):
 #     def __init__(self, err_text):
@@ -119,12 +118,58 @@ from datetime import datetime
 изученных на уроках по ООП."""
 
 
-class Storehouse:
+class Main:
+    input_choise = ''
+    while input_choise != 'stop':
+        input_choise = input("""
+        Перед вами симулятор работы склада, написанный по принципам ООП, с использованием знаний,
+        полученных на предыдущих уроках. Для того, чтобы выйти из симулятора - напишите \"stop\"
+        
+        Меню:
+        1 -- Проверка скалада;
+        2 -- Добавить товар на склад;
+        3 -- Списать товар со склада;
+        4 -- Передать товар подразделению "компании".
+        """).lower()
+
+# admin_login_list = {}
+#         self.cursor.execute("SELECT user_id, login, password FROM admin_authtorization")
+#         for line in self.cursor:
+#             admin_login_list[line[0]] = {}
+#             admin_login_list[line[0]]['user_id'] = line[0]
+#             admin_login_list[line[0]]['login'] = line[1]
+#         return admin_login_list[user_id]
+class DataValidator:
     pass
+
+
+class StoreHouse:
+    def __init__(self, base='lesson_8db.db'):
+        self.connection = sqlite3.connect(base)
+        self.cursor = self.connection.cursor()
+
+    def expect_storehouse(self):
+        self.cursor.execute('SELECT Name, TechCount FROM supplies')
+
+    def write_supplies(self):
+        pass
+
+    def remove_supplies(self):
+        pass
 
 
 class OfficeAppliances:
-    pass
+    def __init__(self, model, model_name, tech_count):
+        self.model = model
+        self.model_name = model_name
+        self.tech_count = tech_count
+
+    def send_to_storehouse(self):
+        consideration_list = [self.model_name, self.tech_count]
+        #Storehouse.supplies_dictionaty['%s']['Model'].append(consideration_list) % self.model
+
+    def remove_from_storehouse(self):
+        pass
 
 
 class Printer(OfficeAppliances):
@@ -139,6 +184,4 @@ class Xerox(OfficeAppliances):
     pass
 
 
-"""7. Реализовать проект «Операции с комплексными числами». Создайте класс «Комплексное число», реализуйте перегрузку 
-методов сложения и умножения комплексных чисел. Проверьте работу проекта, создав экземпляры класса (комплексные числа) 
-и выполнив сложение и умножение созданных экземпляров. Проверьте корректность полученного результата."""
+"""7. == Лото ==."""
