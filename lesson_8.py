@@ -131,14 +131,18 @@ class Main:
         3 -- Списать товар со склада;
         4 -- Передать товар подразделению "компании".
         """).lower()
+        if input_choise == '1':
+            pass
+        elif input_choise == '2':
+            pass
+        elif input_choise == '3':
+            pass
+        elif input_choise == '4':
+            pass
+        else:
+            continue
 
-# admin_login_list = {}
-#         self.cursor.execute("SELECT user_id, login, password FROM admin_authtorization")
-#         for line in self.cursor:
-#             admin_login_list[line[0]] = {}
-#             admin_login_list[line[0]]['user_id'] = line[0]
-#             admin_login_list[line[0]]['login'] = line[1]
-#         return admin_login_list[user_id]
+
 class DataValidator:
     pass
 
@@ -150,8 +154,7 @@ class StoreHouse:
 
     def expect_storehouse(self):
         supplies_list = []
-        self.cursor.execute('SELECT Name, TechCount, Model FROM supplies s'
-                            'JOIN modeles m on s.Model_id = m.id')
+        self.cursor.execute('SELECT Name, TechCount, Model FROM supplies')
         for line in self.cursor:
             supplies_list[line[0]] = {}
             supplies_list[line[0]]['Name'] = line[0]
@@ -174,22 +177,31 @@ class OfficeAppliances:
 
     def send_to_storehouse(self):
         consideration_list = [self.model_name, self.tech_count]
-        #Storehouse.supplies_dictionaty['%s']['Model'].append(consideration_list) % self.model
+        # Storehouse.supplies_dictionaty['%s']['Model'].append(consideration_list) % self.model
 
     def remove_from_storehouse(self):
         pass
 
 
 class Printer(OfficeAppliances):
-    pass
+    def __init__(self, model_name, tech_count, model='Printer'):
+        super().__init__(model, model_name, tech_count)
+
+    def __str__(self):
+        return 'printing'
 
 
 class Scanner(OfficeAppliances):
-    pass
+    def __init__(self, model_name, tech_count, model='Scanner'):
+        super().__init__(model, model_name, tech_count)
+
+    def __str__(self):
+        return 'scanning'
 
 
 class Xerox(OfficeAppliances):
-    pass
+    def __init__(self, model_name, tech_count, model='Xerox'):
+        super().__init__(model, model_name, tech_count)
 
-
-"""7. == Лото ==."""
+    def __str__(self):
+        return 'xeroxing'
