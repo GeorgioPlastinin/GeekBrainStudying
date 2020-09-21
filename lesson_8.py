@@ -119,28 +119,30 @@ import sqlite3
 
 
 class Main:
-    input_choise = ''
-    while input_choise != 'stop':
-        input_choise = input("""
-        Перед вами симулятор работы склада, написанный по принципам ООП, с использованием знаний,
-        полученных на предыдущих уроках. Для того, чтобы выйти из симулятора - напишите \"stop\"
-        
-        Меню:
-        1 -- Проверка скалада;
-        2 -- Добавить товар на склад;
-        3 -- Списать товар со склада;
-        4 -- Передать товар подразделению "компании".
-        """).lower()
-        if input_choise == '1':
-            pass
-        elif input_choise == '2':
-            pass
-        elif input_choise == '3':
-            pass
-        elif input_choise == '4':
-            pass
-        else:
-            continue
+
+    def start(self):
+        input_choise = ''
+        while input_choise != 'stop':
+            input_choise = input("""
+            Перед вами симулятор работы склада, написанный по принципам ООП, с использованием знаний,
+            полученных на предыдущих уроках. Для того, чтобы выйти из симулятора - напишите \"stop\"
+
+            Меню:
+            1 -- Проверка скалада;
+            2 -- Добавить товар на склад;
+            3 -- Списать товар со склада;
+            4 -- Передать товар подразделению "компании".
+            """).lower()
+            if input_choise == '1':
+                pass
+            elif input_choise == '2':
+                pass
+            elif input_choise == '3':
+                pass
+            elif input_choise == '4':
+                pass
+            else:
+                continue
 
 
 class DataValidator:
@@ -154,13 +156,16 @@ class StoreHouse:
 
     def expect_storehouse(self):
         supplies_list = []
-        self.cursor.execute('SELECT Name, TechCount, Model FROM supplies')
-        for line in self.cursor:
-            supplies_list[line[0]] = {}
-            supplies_list[line[0]]['Name'] = line[0]
-            supplies_list[line[0]]['TechCount'] = line[1]
-            supplies_list[line[0]]['Model'] = line[2]
-        return supplies_list
+        try:
+            self.cursor.execute('SELECT Name, TechCount, Model FROM supplies')
+            for line in self.cursor:
+                supplies_list[line[0]] = {}
+                supplies_list[line[0]]['Name'] = line[0]
+                supplies_list[line[0]]['TechCount'] = line[1]
+                supplies_list[line[0]]['Model'] = line[2]
+            return supplies_list
+        except:
+            print('The Storehouse is empty!')
 
     def write_supplies(self):
         pass
@@ -170,17 +175,26 @@ class StoreHouse:
 
 
 class OfficeAppliances:
+    __db = StoreHouse()
+
     def __init__(self, model, model_name, tech_count):
         self.model = model
         self.model_name = model_name
         self.tech_count = tech_count
 
     def send_to_storehouse(self):
-        consideration_list = [self.model_name, self.tech_count]
-        # Storehouse.supplies_dictionaty['%s']['Model'].append(consideration_list) % self.model
+        try:
+            self.__db.cursor.execute('INSERT INTO supplies (Name, TechCount, Model) VALUES (%s, %d, %s)' % (
+                self.model_name, self.tech_count, self.model))
+        except:
+            self.manipulation_from_storehouse()
+        finally:
+            self.__db.connection.commit()
 
-    def remove_from_storehouse(self):
-        pass
+    def manipulation_from_storehouse(self):
+        self.__db.cursor.execute('UPDATE supplies SET TechCount = %d WHERE Name = %s AND Model = %s' % (
+            self.tech_count, self.model_name, self.model))
+        self.__db.connection.commit()
 
 
 class Printer(OfficeAppliances):
