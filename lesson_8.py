@@ -118,7 +118,38 @@ import sqlite3
 изученных на уроках по ООП."""
 
 
+class DataValidator:
+    pass
+
+
+class StoreHouse:
+    def __init__(self, base='lesson_8db.db'):
+        self.connection = sqlite3.connect(base)
+        self.cursor = self.connection.cursor()
+
+
+    def expect_storehouse(self):
+        supplies_list = []
+        try:
+            self.cursor.execute('SELECT Name, TechCount, Model FROM supplies')
+            for line in self.cursor:
+                supplies_list[line[0]] = {}
+                supplies_list[line[0]]['Name'] = line[0]
+                supplies_list[line[0]]['TechCount'] = line[1]
+                supplies_list[line[0]]['Model'] = line[2]
+            return supplies_list
+        except:
+            print('The Storehouse is empty!')
+
+    def write_supplies(self):
+        pass
+
+    def remove_supplies(self):
+        pass
+
+
 class Main:
+    __db = StoreHouse()
 
     def start(self):
         input_choise = ''
@@ -144,35 +175,9 @@ class Main:
             else:
                 continue
 
-
-class DataValidator:
-    pass
-
-
-class StoreHouse:
-    def __init__(self, base='lesson_8db.db'):
-        self.connection = sqlite3.connect(base)
-        self.cursor = self.connection.cursor()
-
-    def expect_storehouse(self):
-        supplies_list = []
-        try:
-            self.cursor.execute('SELECT Name, TechCount, Model FROM supplies')
-            for line in self.cursor:
-                supplies_list[line[0]] = {}
-                supplies_list[line[0]]['Name'] = line[0]
-                supplies_list[line[0]]['TechCount'] = line[1]
-                supplies_list[line[0]]['Model'] = line[2]
-            return supplies_list
-        except:
-            print('The Storehouse is empty!')
-
-    def write_supplies(self):
+    def one(self):
+        self.__db.expect_storehouse()
         pass
-
-    def remove_supplies(self):
-        pass
-
 
 class OfficeAppliances:
     __db = StoreHouse()
